@@ -5,6 +5,8 @@ const db = require('./models')
 const apiRoutes = require('./routes/api-routes.js');
 const htmlRoutes = require('./routes/html-routes.js');
 
+const env = require('dotenv');
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
