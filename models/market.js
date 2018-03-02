@@ -1,49 +1,44 @@
-const Sequelize = require("sequelize");
-// sequelize (lowercase) references our connection to the DB.
-const sequelize = require("../config/connection.js");
 
-// Creates a "Chirp" model that matches up with DB
-const Market = sequelize.define("market", {
-    id: {
-        type: Sequelize.INTEGER, autoIncrement: true 
-    },
-    foreignKey: {
-        type: Sequelize.INTEGER
-    },
-    name: {
-        type: Sequelize.STRING
-    },
-    address: {
-        type: Sequelize.STRING
-    },
-    GoogleLink: {
-        type: Sequelize.STRING,
-    },
-    products: {
-        type: Sequelize.INTEGER
-    },
-    schedule: {
-        type: Sequelize.INTEGER
-    },
-    ATM: {
-        type: Sequelize.BOOLEAN
-    },
-    restroom: {
-        type: Sequelize.BOOLEAN
-    },
-    petFriendly: {
-        type: Sequelize.BOOLEAN
-    },
-    outdoors: {
-        type: Sequelize.BOOLEAN
-    },
-    alcohol: {
-        type: Sequelize.BOOLEAN
-    }
-});
+module.exports = (sequelize, DataTypes) => {
+    var market = sequelize.define('market', {
+        usda_id: {
+            type: DataTypes.INTEGER,
+        },
+        name: {
+            type: DataTypes.STRING
+        },
+        address: {
+            type: DataTypes.STRING
+        },
+        GoogleLink: {
+            type: DataTypes.STRING,
+        },
+        products: {
+            type: DataTypes.INTEGER
+        },
+        schedule: {
+            type: DataTypes.INTEGER
+        },
+        ATM: {
+            type: DataTypes.BOOLEAN
+        },
+        restroom: {
+            type: DataTypes.BOOLEAN
+        },
+        petFriendly: {
+            type: DataTypes.BOOLEAN
+        },
+        outdoors: {
+            type: DataTypes.BOOLEAN
+        },
+        alcohol: {
+            type: DataTypes.BOOLEAN
+        }
+    }, {});
 
-// Syncs with DB
-Market.sync();
-
-// Makes the Chirp Model available for other files (will also create a table)
-module.exports = Market;
+    market.associate = function (models) {
+        // associations can be defined here
+        // market.belongsTo(models.[other model name])
+    };
+    return market;
+};
