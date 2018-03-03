@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         GoogleLink: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING
         },
         Products: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         Schedule: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         ATM: {
             type: DataTypes.BOOLEAN
