@@ -1,22 +1,22 @@
 
 module.exports = (sequelize, DataTypes) => {
-    var market = sequelize.define('market', {
+    var Market = sequelize.define('Market', {
         usda_id: {
             type: DataTypes.INTEGER,
         },
-        name: {
+        marketname: {
             type: DataTypes.STRING
         },
-        address: {
+        Address: {
             type: DataTypes.STRING
         },
         GoogleLink: {
             type: DataTypes.STRING,
         },
-        products: {
+        Products: {
             type: DataTypes.INTEGER
         },
-        schedule: {
+        Schedule: {
             type: DataTypes.INTEGER
         },
         ATM: {
@@ -36,9 +36,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {});
 
-    market.associate = function (models) {
+    Market.associate = function (models) {
         // associations can be defined here
         // market.belongsTo(models.[other model name])
     };
-    return market;
+    return Market;
 };
+
