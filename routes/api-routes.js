@@ -4,19 +4,75 @@ const router = express.Router();
 const request = require('request');
 
 
+// switch statement for each parameter that is updated by the user
+function updateParam(parameter, input) {
+    let paramObject;
+    switch (parameter) {
+        case 'ATM':
+            paramObject = {
+                ATM: input
+            };
+            
+            break;
+        case 'restroom':
+            paramObject = {
+                restroom: input
+            };
+            
+            break;
+        case 'petFriendly':
+            paramObject = {
+                petFriendly: input
+            };
+            
+            break;
+        case 'outdoors':
+            paramObject = {
+                outdoors: input
+            };
+            
+            break;
+        case 'alcohol':
+            paramObject = {
+                alcohol: input
+            };
+            break;
+        default:
+            console.log('bad');
+    }
+    return paramObject;
+
+}
+
+
+
 
 //!!! CHANGE TO PUT !!!
 //updates the markets with user-input information about the place in matching usda_id market
-
-
-
+router.get("/api/:usda_id/:parameter/:input", function (req, res) {
+    let parameter = req.params.parameter;
+    let input = req.params.input;
+    let marketId= req.params.usda_id;
+    let choosenParam = updateParam(parameter, input);
+    console.log(choosenParam);
+    db.Market.update(choosenParam, {
+            where: {
+                usda_id: marketId
+            }
+        }).then(function (results) {
+            console.log(results);
+            res.send('success');
+        }).catch(function (err) {
+            console.log('Error: ' + err.responseText)
+        });
+});
 
 
 
 //!!! CHANGE TO PUT!!!
 // gets searched market ID from USDA API and pushes the new information to the corresponding usda_id in MySQL
 router.get("/api/:usda_id", function (req, res) {
-    const usda_id = req.params.usda_id;
+    let usda_id = req.params.usda_id;
     let marketDetails;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + usda_id, function (error, response, body) {
         console.log('error:', error);
@@ -33,15 +89,15 @@ router.get("/api/:usda_id", function (req, res) {
                 Products: marketDetails.Products,
                 Schedule: marketDetails.Schedule
             }, {
-                    where: {
-                        usda_id: usda_id
-                    }
-                }).then(function (results) {
-                    console.log(results);
-                    // res.send('success');
-                }).catch(function (err) {
-                    console.log('Error: ' + err.responseText)
-                });
+                where: {
+                    usda_id: usda_id
+                }
+            }).then(function (results) {
+                console.log(results);
+                // res.send('success');
+            }).catch(function (err) {
+                console.log('Error: ' + err.responseText)
+            });
         }
     });
 });
@@ -52,9 +108,9 @@ router.get("/api/:usda_id", function (req, res) {
 router.get("/api/zip/:zipcode", function (req, res) {
     const zipcode = req.params.zipcode;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?limit=5&zip=" + zipcode, function (error, response, body) {
-        console.log('error:', error); 
-        console.log('statusCode:', response && response.statusCode); 
-        console.log('body:', body); 
+        console.log('error:', error);
+        console.log('statusCode:', response && response.statusCode);
+        console.log('body:', body);
 
 
 

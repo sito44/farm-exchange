@@ -20,19 +20,19 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         ATM: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.STRING
         },
         restroom: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.STRING
         },
         petFriendly: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.STRING
         },
         outdoors: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.STRING
         },
         alcohol: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.STRING
         }
     }, {});
 
