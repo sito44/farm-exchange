@@ -4,6 +4,17 @@ const router = express.Router();
 const request = require('request');
 
 
+
+//!!! CHANGE TO PUT !!!
+//updates the markets with user-input information about the place in matching usda_id market
+
+
+
+
+
+
+//!!! CHANGE TO PUT!!!
+// gets searched market ID from USDA API and pushes the new information to the corresponding usda_id in MySQL
 router.get("/api/:usda_id", function (req, res) {
     const usda_id = req.params.usda_id;
     let marketDetails;
@@ -28,42 +39,22 @@ router.get("/api/:usda_id", function (req, res) {
                 }).then(function (results) {
                     console.log(results);
                     // res.send('success');
+                }).catch(function (err) {
+                    console.log('Error: ' + err.responseText)
                 });
         }
     });
 });
 
-//     }).then(function (results) {
-//     if (marketDetails) {
-//         db.Market.update({
-//             Address: marketDetails.Address,
-//             GoogleLink: marketDetails.GoogleLink,
-//             Products: marketDetails.Products,
-//             Schedule: marketDetails.Schedule
-//         }, {
-//                 where: {
-//                     usda_id: usda_id
-//                 }
-//             });
-//         res.send('success');
-//     } else {
-//         res.send('busted');
-//     }
-// })
 
-
-
-
-
-
-
-
+//!!!CHANGE TO POST!!!
+//this gets all markets from USDA API through a zipcode search and pushes them to MySQL if they don't already exist
 router.get("/api/zip/:zipcode", function (req, res) {
     const zipcode = req.params.zipcode;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?limit=5&zip=" + zipcode, function (error, response, body) {
-        console.log('error:', error); // Print the error if one occurred
-        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        console.log('body:', body); // Print the HTML for the Google homepage.
+        console.log('error:', error); 
+        console.log('statusCode:', response && response.statusCode); 
+        console.log('body:', body); 
 
 
 
