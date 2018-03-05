@@ -105,14 +105,16 @@ router.put("/api/:usda_id", function (req, res) {
 
 
 //this gets all markets from USDA API through a zipcode search and pushes them to MySQL if they don't already exist
-router.post("/api/zip/:zipcode", function (req, res) {
+router.get("/api/zip/:zipcode", function (req, res) {
     const zipcode = req.params.zipcode;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?limit=5&zip=" + zipcode, function (error, response, body) {
-        console.log('error:', error);
+        /* console.log('error:', error);
         console.log('statusCode:', response && response.statusCode);
-        console.log('body:', body);
-
-
+        console.log('body:', body); */
+        let queryCheck = JSON.parse(body).results[0].id;
+        console.log(body);
+        console.log(queryCheck);
+        if(queryCheck === 'Error'){return};
 
         const promises = [];
 
