@@ -1,12 +1,13 @@
 $(document).ready(function () {
 
+  let currentQuery;
+
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
     console.log(input);
     /* zipAddress(input); */
     apiQuery(input);
   });
-
 
   // GOOGLE MAPS 
   var geocoder; //To use later
@@ -47,7 +48,9 @@ $(document).ready(function () {
       '</div>' +
       '</div>';
 
-    geocoder.geocode({ 'address': zipCode }, function (results, status) {
+    geocoder.geocode({
+      'address': zipCode
+    }, function (results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         //Got result, center the map and put it out there
         map.setCenter(results[0].geometry.location);
@@ -69,12 +72,25 @@ $(document).ready(function () {
   }
 
   function apiQuery(input) {
-  
-    $.get(`/api/zip/${input}`, function (err, response) {
+
+    $.get(`/api/zip/${input}`, function (body, response, err) {
       console.log(input);
       console.log(err);
+      currentQuery = body.results;
+      console.log(currentQuery);
       console.log(`Markets Found: ${response}`);
+      listGenerator(currentQuery);
     });
 
+  }
+
+  function listGenerator(arrayOfMarkets) {
+    let listContainer = $('#queryList');
+    let list = arrayOfMarkets.map(function(marketData){return marketData});
+    list.forEach(marketData => {
+      let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action">${marketData.marketname}</a>`;
+      listContainer.append(linkButton);
+    });
+    console.log(list);
   }
 });

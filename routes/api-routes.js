@@ -112,6 +112,7 @@ router.get("/api/zip/:zipcode", function (req, res) {
         console.log('statusCode:', response && response.statusCode);
         console.log('body:', body); */
         let queryCheck = JSON.parse(body).results[0].id;
+        const apiQuery = JSON.parse(body);
         console.log(body);
         console.log(queryCheck);
         if(queryCheck === 'Error'){return};
@@ -120,7 +121,7 @@ router.get("/api/zip/:zipcode", function (req, res) {
 
         let numberCreated = 0;
 
-        JSON.parse(body).results.forEach(element => {
+        apiQuery.results.forEach(element => {
             promises.push(
                 new Promise(function (resolve, reject) {
 
@@ -140,20 +141,17 @@ router.get("/api/zip/:zipcode", function (req, res) {
                             if (created) {
                                 numberCreated += 1;
                             }
-                            resolve()
-                        })
-
+                            resolve();
+                        });
                 })
-            )
+            );
         });
 
-        Promise.all(promises).then(() => res.send(`Success! ${numberCreated} markets added to the db!`))
-
-
-
-
-
-
+        Promise.all(promises).then(() => {
+            console.log(`Success! ${numberCreated} markets added to the db!`);
+            res.send(apiQuery);
+    
+    });
 
     });
 });
