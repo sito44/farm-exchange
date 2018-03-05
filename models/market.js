@@ -2,7 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
     var Market = sequelize.define('Market', {
         usda_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
+            primaryKey: true
         },
         marketname: {
             type: DataTypes.STRING
