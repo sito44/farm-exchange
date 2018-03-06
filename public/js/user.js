@@ -92,19 +92,56 @@ $(document).ready(function () {
       let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action" data-marketId="${marketData.id}">${marketData.marketname}</a>`;
       listContainer.append(linkButton);
     });
-    console.log(list);
+    
   }
 
   function marketInfoGenerator(marketDataObject) {
     $('dataContainer').empty();
+    const marketObject = marketDataObject;
+    console.log('RIGHT HERE!!!!!! --------> ' + marketObject);
+    let dataContainer = $('dataContainer');
+    let marketContent = 
+    `<div class="marketHeader">
+    <h3 id="marketName"></h3>
+    <h4 id="address"></h4>
+    </div>
+    <div class="schedule">
+    <p id="schedule"></p>
+    </div>
+    <div class="productsContainer">
+    <ul class="products" id="products"></ul>
+    </div>
+    <div class="amenitiesContainer">
+    <ul id="amentities"></ul>
+    </div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7098.94326104394!2d78.0430654485247!3d27.172909818538997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1385710909804" width="600" height="450" frameborder="0" style="border:0"></iframe>
+
+    `;
   }
   /* --------------------------------------------------------- Event delegation for market button links */
   $('document').on('click', '.list-group-item', function() {
     let clickedButtonMarketId = $('this').attr('data-marketId');
-    console.log(clickedButtonMarketId);
+    alert('marketId: ' + clickedButtonMarketId);
     $.get(`/api/${clickedButtonMarketId}`, function(body, response, err) {
       if(err){console.log(err)};
-      console.log(body);
-    });
+
+      // if(body.length) {
+      //   $.get(`/api/market-data/${clickedButtonMarketId}`, function(body, response, err){
+      //     if (err) { console.log(err) };
+      //     marketInfoGenerator(JSON.stringify(body));
+      //   });
+      // } else {
+      //   console.log('you fd up!')
+      // }
+    }).done(function () {
+      $.get(`/api/market-data/${clickedButtonMarketId}`, function (body, response, err) {
+        if (err) { throw err};
+        console.log('this is the body: ' + body);
+        console.log(typeof body);
+        console.log('this is the response: ' + response);
+        console.log(typeof response);
+        marketInfoGenerator(body);
+      });
+    }) 
   });
 });
