@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
   let currentQuery;
+  let currentMarket;
 
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
@@ -24,7 +25,7 @@ $(document).ready(function () {
     map = new google.maps.Map(document.getElementById("map"), myOptions);
   }
 
-  //Call this wherever needed to actually handle the display
+  // ------------------------------------------- Call this wherever needed to actually handle the display
   function zipAddress(zipCode) {
 
     var contentString = '<div id="content">' +
@@ -88,9 +89,22 @@ $(document).ready(function () {
     let listContainer = $('#queryList');
     let list = arrayOfMarkets.map(function(marketData){return marketData});
     list.forEach(marketData => {
-      let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action">${marketData.marketname}</a>`;
+      let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action" data-marketId="${marketData.id}">${marketData.marketname}</a>`;
       listContainer.append(linkButton);
     });
     console.log(list);
   }
+
+  function marketInfoGenerator(marketDataObject) {
+    $('dataContainer').empty();
+  }
+  /* --------------------------------------------------------- Event delegation for market button links */
+  $('document').on('click', '.list-group-item', function() {
+    let clickedButtonMarketId = $('this').attr('data-marketId');
+    console.log(clickedButtonMarketId);
+    $.get(`/api/${clickedButtonMarketId}`, function(body, response, err) {
+      if(err){console.log(err)};
+      console.log(body);
+    });
+  });
 });

@@ -44,8 +44,16 @@ function updateParam(parameter, input) {
 
 }
 
+//Get all columns from one row/market ------
+router.get("/api/market-data/:usda_id", function (req, res) {
+    db.Market.findById(req.params.usda_id).then(results => {
+        console.log(results);
+        res.send(results);
 
-
+    }).catch(function (err) {
+        console.log('Error: ' + err.responseText)
+    });
+});
 
 
 //updates the markets with user-input information about the place in matching usda_id market
@@ -71,7 +79,7 @@ router.put("/api/:usda_id/:parameter/:input", function (req, res) {
 
 
 // gets searched market ID from USDA API and pushes the new information to the corresponding usda_id in MySQL
-router.put("/api/:usda_id", function (req, res) {
+router.get("/api/:usda_id", function (req, res) {
     let usda_id = req.params.usda_id;
     let marketDetails;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + usda_id, function (error, response, body) {
@@ -82,7 +90,7 @@ router.put("/api/:usda_id", function (req, res) {
         res.json(marketDetails);
         console.log("THIS: " + marketDetails);
         if (marketDetails) {
-            console.log(marketDetails.Products);
+            /* console.log(marketDetails.Products); */
             db.Market.update({
                 Address: marketDetails.Address,
                 GoogleLink: marketDetails.GoogleLink,
@@ -96,6 +104,7 @@ router.put("/api/:usda_id", function (req, res) {
                 console.log(results);
                 // res.send('success');
             }).catch(function (err) {
+                console.log(err);
                 console.log('Error: ' + err.responseText)
             });
         }
