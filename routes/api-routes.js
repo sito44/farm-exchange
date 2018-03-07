@@ -48,6 +48,7 @@ function updateParam(parameter, input) {
 router.get("/api/market-data/:usda_id", function (req, res) {
     db.Market.findById(req.params.usda_id).then(results => {
         res.json(results);
+        console.log(results);
     }).catch(function (err) {
         console.log('Error: ' + err.responseText)
     });
