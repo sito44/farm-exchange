@@ -98,6 +98,18 @@ $(document).ready(function () {
   function marketInfoGenerator(marketDataObject) {
     $('#dataContainer').empty();
     const marketObject = marketDataObject;
+    if(marketObject.outdoors === null) {
+      marketObject.outdoors = 'N/A';
+    }
+    if (marketObject.restroom === null) {
+      marketObject.restroom = 'N/A';
+    }
+    if (marketObject.alcohol === null) {
+      marketDataObject.alcohol = "N/A"
+    }
+    if (marketObject.petFriendly === null) {
+      marketDataObject.petFriendly = "N/A"
+    }
     console.log('RIGHT HERE!!!!!! --------> ', marketObject);
     let dataContainer = $('dataContainer');
     let marketContent = 
