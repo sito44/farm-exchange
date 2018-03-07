@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     <!-- CSS link -->
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <!-- JQUERY link -->
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
@@ -18,20 +19,19 @@
         crossorigin="anonymous"></script>
     <!-- JS script -->
     <script type="text/javascript" src="./js/user.js"></script>
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
+    
 </head>
 
 <body>
+
     <!-- MAIN CONTAINER -->
+
     <div class="main-container">
 
         <div class="back-image">
+
             <!-- Logo & Menu container -->
+
             <div class="menu-logo">
                 <div class="logo col-md-6">
                     <img src="#">
@@ -43,7 +43,9 @@
             </div>
         </div>
         <h1 class="name">Farmers Exchange</h1>
+
         <!-- SEARCH BAR -->
+
         <div class="search-box">
             <div class="search-group">
                 <input class="search-input inactive" type="text" placeholder="ie. 92154">
@@ -52,21 +54,19 @@
                 </button>
             </div>
         </div>
+
         <!-- JQUERY GENERATED RESULT LIST -->
        <div id="dataContainer">
             <div class="list-group" id="queryList"></div>
        </div>
 
     </div>
-    <!-- Google Map -->
-    <div class="googleMap">
-        <div class="map" id="map"></div>
-    </div>
+    
+    
     <!-- FOOTER -->
     <div class="bg-transparent footer">© 2018 Farmers Exhange</div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApPH4RH35uh0rUqYOlpL-cj-vwyKuKRgs&callback=initMap">
-    </script>
+   
 </body>
 
 </html>
