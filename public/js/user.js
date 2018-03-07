@@ -144,14 +144,14 @@ $(document).ready(function () {
     </div>
     <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
   `;
+    
     $('#dataContainer').append(marketContent);
+
     if (marketObject.Products !== "") {
       productSplit(marketDataObject.Products);
+    }
 
-  }
-<<<<<<< HEAD
-
-
+}
 
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
@@ -159,9 +159,6 @@ $(document).ready(function () {
     /* zipAddress(input); */
     apiQuery(input);
   });
-=======
-}
->>>>>>> master
   /* --------------------------------------------------------- Event delegation for market button links */
 
  
