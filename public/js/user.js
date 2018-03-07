@@ -89,7 +89,7 @@ $(document).ready(function () {
     let listContainer = $('#queryList');
     let list = arrayOfMarkets.map(function(marketData){return marketData});
     list.forEach(marketData => {
-      let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action" data-marketId="${marketData.id}">${marketData.marketname}</a>`;
+      let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action" data-marketid="${marketData.id}">${marketData.marketname}</a>`;
       listContainer.append(linkButton);
     });
     
@@ -98,50 +98,70 @@ $(document).ready(function () {
   function marketInfoGenerator(marketDataObject) {
     $('dataContainer').empty();
     const marketObject = marketDataObject;
-    console.log('RIGHT HERE!!!!!! --------> ' + marketObject);
+    console.log('RIGHT HERE!!!!!! --------> ', marketObject);
     let dataContainer = $('dataContainer');
     let marketContent = 
     `<div class="marketHeader">
-    <h3 id="marketName"></h3>
-    <h4 id="address"></h4>
+    <h3 id="marketName">${marketObject.marketname}</h3>
+    <h4 id="address">${marketObject.Address}</h4>
     </div>
     <div class="schedule">
-    <p id="schedule"></p>
+    <p id="schedule">${marketObject.Schedule}</p>
     </div>
     <div class="productsContainer">
-    <ul class="products" id="products"></ul>
+    <p class="products" id="products">${marketObject.Products}</p>
     </div>
     <div class="amenitiesContainer">
-    <ul id="amentities"></ul>
+    <ul id="amentities">
+    <li>${marketObject.outdoors}</li>
+    <li>${marketObject.restroom}</li>
+    <li>${marketObject.petFriendly}</li>
+    <li>${marketObject.alcohol}</li>
+    </ul>
     </div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7098.94326104394!2d78.0430654485247!3d27.172909818538997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1385710909804" width="600" height="450" frameborder="0" style="border:0"></iframe>
-
-    `;
+    <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0"></iframe>
+  `;
   }
   /* --------------------------------------------------------- Event delegation for market button links */
-  $('document').on('click', '.list-group-item', function() {
-    let clickedButtonMarketId = $('this').attr('data-marketId');
-    alert('marketId: ' + clickedButtonMarketId);
-    $.get(`/api/${clickedButtonMarketId}`, function(body, response, err) {
-      if(err){console.log(err)};
+  $(document).on('click', '.list-group-item', function(event) {
+    event.preventDefault()
+    let clickedButtonMarketId = $(this).attr('data-marketid');
+    console.log(clickedButtonMarketId)
+    $.get(`/api/${clickedButtonMarketId}`)
+    
+    .done(function(data) {
+      console.log('call completed')
+      console.log(data)
 
-      // if(body.length) {
-      //   $.get(`/api/market-data/${clickedButtonMarketId}`, function(body, response, err){
-      //     if (err) { console.log(err) };
-      //     marketInfoGenerator(JSON.stringify(body));
-      //   });
-      // } else {
-      //   console.log('you fd up!')
-      // }
-    }).done(function () {
-      $.get(`/api/market-data/${clickedButtonMarketId}`, function (body, response, err) {
-        if (err) { throw err};
-        console.log('this is the body: ' + body);
-        console.log(typeof body);
-        console.log('this is the response: ' + response);
-        console.log(typeof response);
+      $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
         marketInfoGenerator(body);
-      });
-    }) 
+      })
+        .fail(function () {
+          alert("error");
+        })
+        .always(function () {
+          alert("finished");
+        });
+
+
+
+      // $.get(`/api/market-data/${clickedButtonMarketId}`, function (body, response, err) {
+      //   if (err) { throw err};
+      //   console.log('this is the body: ' + body);
+      //   console.log(typeof body); 
+      //   console.log('this is the response: ' + response);
+      //   console.log(typeof response);
+      //   marketInfoGenerator(body);
+      // });
+
+    })
+
+    .fail(function(err) {
+      console.log(err)
+    })
+
+
+
   });
 });
+
