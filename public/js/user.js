@@ -74,7 +74,7 @@ $(document).ready(function () {
 
   function apiQuery(input) {
 
-    $.get(`/api/zip/${input}`, function (body, response, err) {
+    $.post(`/api/zip/${input}`, function (body, response, err) {
       console.log(input);
       console.log(err);
       currentQuery = body.results;
@@ -96,7 +96,7 @@ $(document).ready(function () {
   }
 
   function marketInfoGenerator(marketDataObject) {
-    $('dataContainer').empty();
+    $('#dataContainer').empty();
     const marketObject = marketDataObject;
     console.log('RIGHT HERE!!!!!! --------> ', marketObject);
     let dataContainer = $('dataContainer');
@@ -119,15 +119,16 @@ $(document).ready(function () {
     <li>${marketObject.alcohol}</li>
     </ul>
     </div>
-    <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0"></iframe>
+    <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
   `;
+    $('#dataContainer').append(marketContent);
   }
   /* --------------------------------------------------------- Event delegation for market button links */
   $(document).on('click', '.list-group-item', function(event) {
     event.preventDefault()
     let clickedButtonMarketId = $(this).attr('data-marketid');
     console.log(clickedButtonMarketId)
-    $.get(`/api/${clickedButtonMarketId}`)
+    $.post(`/api/${clickedButtonMarketId}`)
     
     .done(function(data) {
       console.log('call completed')
@@ -138,21 +139,7 @@ $(document).ready(function () {
       })
         .fail(function () {
           alert("error");
-        })
-        .always(function () {
-          alert("finished");
         });
-
-
-
-      // $.get(`/api/market-data/${clickedButtonMarketId}`, function (body, response, err) {
-      //   if (err) { throw err};
-      //   console.log('this is the body: ' + body);
-      //   console.log(typeof body); 
-      //   console.log('this is the response: ' + response);
-      //   console.log(typeof response);
-      //   marketInfoGenerator(body);
-      // });
 
     })
 
