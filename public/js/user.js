@@ -89,11 +89,24 @@ $(document).ready(function () {
     let listContainer = $('#queryList');
     let list = arrayOfMarkets.map(function(marketData){return marketData});
     list.forEach(marketData => {
-      let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action" data-marketId="${marketData.id}">${marketData.marketname}</a>`;
+      let linkButton = `<button class="list-group-item list-group-item-action" data-marketId="${marketData.id}">${marketData.marketname}</button>`;
       listContainer.append(linkButton);
+      
+      $('#queryList').on('click',function(){
+        let dropdown = `<div class="d-flex w-100 justify-content-between">${marketData.address}</div>`;
+        linkButton.append(dropdown);
+      })
     });
     
   }
+   // <div class="d-flex w-100 justify-content-between">
+   //    <h5 class="mb-1">List group item heading</h5>
+   //    <small>3 days ago</small>
+   //  </div>
+   //  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+   //  <small>Donec id elit non mi porta.</small>
+
+
 
   function marketInfoGenerator(marketDataObject) {
     $('dataContainer').empty();
