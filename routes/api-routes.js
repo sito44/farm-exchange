@@ -56,7 +56,7 @@ router.get("/api/market-data/:usda_id", function (req, res) {
 
 
 //updates the markets with user-input information about the place in matching usda_id market
-router.put("/api/:usda_id/:parameter/:input", function (req, res) {
+router.post("/api/:usda_id/:parameter/:input", function (req, res) {
     let parameter = req.params.parameter;
     let input = req.params.input;
     let marketId= req.params.usda_id;

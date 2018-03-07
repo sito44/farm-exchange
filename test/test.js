@@ -13,7 +13,7 @@ describe('Load a Page', function () {
         nightmare = new Nightmare()
     })
 
-    describe('/ (Home Page)', () => {
+    describe('/', () => {
         it('should load without error', done => {
             nightmare.goto('http://localhost:8080/')
                 .end()
@@ -30,15 +30,15 @@ describe('Load a Page', function () {
 // const chai = require('chai')
 // const expect = chai.expect
 
-// describe('test duckduckgo search results', () => {
+// describe('test farm-exchange search results', () => {
 //     it('should find the nightmare github link first', function (done) {
 //         this.timeout('10s')
 
 //         const nightmare = Nightmare()
 //         nightmare
-//             .goto('https://duckduckgo.com')
+//             .goto('http://localhost:8080/')
 //             .type('#search_form_input_homepage', 'github nightmare')
-//             .click('#search_button_homepage')
+//             .click('#submit')
 //             .wait('#links .result__a')
 //             .evaluate(() => document.querySelector('#links .result__a').href)
 //             .end()
