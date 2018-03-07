@@ -76,7 +76,7 @@ router.put("/api/:usda_id/:parameter/:input", function (req, res) {
 
 
 // gets searched market ID from USDA API and pushes the new information to the corresponding usda_id in MySQL
-router.get("/api/:usda_id", function (req, res) {
+router.post("/api/:usda_id", function (req, res) {
     let usda_id = req.params.usda_id;
     let marketDetails;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + usda_id, function (error, response, body) {
@@ -108,7 +108,7 @@ router.get("/api/:usda_id", function (req, res) {
 
 
 //this gets all markets from USDA API through a zipcode search and pushes them to MySQL if they don't already exist
-router.get("/api/zip/:zipcode", function (req, res) {
+router.post("/api/zip/:zipcode", function (req, res) {
     const zipcode = req.params.zipcode;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?limit=5&zip=" + zipcode, function (error, response, body) {
         if(error) {throw error;}
