@@ -95,9 +95,19 @@ $(document).ready(function () {
     
   }
 
+  function productSplit(productsString){
+    let productContainer = $('#products');
+    let productArray = productsString.split(';');
+
+    for (var i = 0; i < productArray.length; i++){
+      productContainer.append(`<li>${productArray[i]}</li>`);
+    }
+  }
+
   function marketInfoGenerator(marketDataObject) {
     $('#dataContainer').empty();
     const marketObject = marketDataObject;
+    
     if(marketObject.outdoors === null) {
       marketObject.outdoors = 'N/A';
     }
@@ -122,7 +132,7 @@ $(document).ready(function () {
     <p id="schedule">${marketObject.Schedule}</p>
     </div>
     <div class="productsContainer">
-    <p class="products" id="products">${marketObject.Products}</p>
+    <ul class="products" id="products"></ul>
     </div>
     <div class="amenitiesContainer">
     <ul id="amentities">
@@ -135,7 +145,11 @@ $(document).ready(function () {
     <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
   `;
     $('#dataContainer').append(marketContent);
+    if (marketObject.Products !== "") {
+      productSplit(marketDataObject.Products);
+
   }
+
 
 
 
@@ -145,6 +159,8 @@ $(document).ready(function () {
     /* zipAddress(input); */
     apiQuery(input);
   });
+
+}
   /* --------------------------------------------------------- Event delegation for market button links */
 
  
