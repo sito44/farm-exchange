@@ -44,8 +44,14 @@ function updateParam(parameter, input) {
 
 }
 
-
-
+//Get all columns from one row/market ------
+router.get("/api/market-data/:usda_id", function (req, res) {
+    db.Market.findById(req.params.usda_id).then(results => {
+        res.json(results);
+    }).catch(function (err) {
+        console.log('Error: ' + err.responseText)
+    });
+});
 
 
 //updates the markets with user-input information about the place in matching usda_id market
@@ -54,13 +60,11 @@ router.put("/api/:usda_id/:parameter/:input", function (req, res) {
     let input = req.params.input;
     let marketId= req.params.usda_id;
     let choosenParam = updateParam(parameter, input);
-    console.log(choosenParam);
     db.Market.update(choosenParam, {
             where: {
                 usda_id: marketId
             }
         }).then(function (results) {
-            console.log(results);
             res.send('success');
         }).catch(function (err) {
             console.log('Error: ' + err.responseText)
@@ -71,18 +75,14 @@ router.put("/api/:usda_id/:parameter/:input", function (req, res) {
 
 
 // gets searched market ID from USDA API and pushes the new information to the corresponding usda_id in MySQL
-router.put("/api/:usda_id", function (req, res) {
+router.get("/api/:usda_id", function (req, res) {
     let usda_id = req.params.usda_id;
     let marketDetails;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=" + usda_id, function (error, response, body) {
-        console.log('error:', error);
-        console.log('statusCode:', response && response.statusCode);
-        console.log('body:', body);
+        if(error){throw error;}
         marketDetails = JSON.parse(body).marketdetails;
-        res.json(marketDetails);
-        console.log("THIS: " + marketDetails);
         if (marketDetails) {
-            console.log(marketDetails.Products);
+            
             db.Market.update({
                 Address: marketDetails.Address,
                 GoogleLink: marketDetails.GoogleLink,
@@ -93,9 +93,11 @@ router.put("/api/:usda_id", function (req, res) {
                     usda_id: usda_id
                 }
             }).then(function (results) {
-                console.log(results);
+                console.log('successful update!!!!');
+                res.json(marketDetails);
                 // res.send('success');
             }).catch(function (err) {
+                console.log(err);
                 console.log('Error: ' + err.responseText)
             });
         }
@@ -105,20 +107,22 @@ router.put("/api/:usda_id", function (req, res) {
 
 
 //this gets all markets from USDA API through a zipcode search and pushes them to MySQL if they don't already exist
-router.post("/api/zip/:zipcode", function (req, res) {
+router.get("/api/zip/:zipcode", function (req, res) {
     const zipcode = req.params.zipcode;
     request("http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?limit=5&zip=" + zipcode, function (error, response, body) {
-        console.log('error:', error);
+        if(error) {throw error;}
         console.log('statusCode:', response && response.statusCode);
-        console.log('body:', body);
-
-
+        
+        let queryCheck = JSON.parse(body).results[0].id;
+        const apiQuery = JSON.parse(body);
+        
+        if(queryCheck === 'Error'){return};
 
         const promises = [];
 
         let numberCreated = 0;
 
-        JSON.parse(body).results.forEach(element => {
+        apiQuery.results.forEach(element => {
             promises.push(
                 new Promise(function (resolve, reject) {
 
@@ -138,20 +142,17 @@ router.post("/api/zip/:zipcode", function (req, res) {
                             if (created) {
                                 numberCreated += 1;
                             }
-                            resolve()
-                        })
-
+                            resolve();
+                        });
                 })
-            )
+            );
         });
 
-        Promise.all(promises).then(() => res.send(`Success! ${numberCreated} markets added to the db!`))
-
-
-
-
-
-
+        Promise.all(promises).then(() => {
+            console.log(`Success! ${numberCreated} markets added to the db!`);
+            res.send(apiQuery);
+    
+    });
 
     });
 });

@@ -2,7 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
     var Market = sequelize.define('Market', {
         usda_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
+            primaryKey: true
         },
         marketname: {
             type: DataTypes.STRING
@@ -14,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         Products: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT
         },
         Schedule: {
             type: DataTypes.STRING
