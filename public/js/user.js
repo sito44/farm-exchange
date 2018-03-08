@@ -120,6 +120,11 @@ $(document).ready(function () {
     }
 
   }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 62db78ef5be175ec6116357236df4955a5a09ab8
 
   // ----------------------------------------------------------- click handler for seach button
 
@@ -129,6 +134,14 @@ $(document).ready(function () {
 
     apiQuery(input);
   });
+<<<<<<< HEAD
+=======
+
+}
+  /* --------------------------------------------------------- Event delegation for market button links */
+
+ 
+>>>>>>> 62db78ef5be175ec6116357236df4955a5a09ab8
 
   /* --------------------------------------------------------- Event delegation for market button links */
 
