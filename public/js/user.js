@@ -112,6 +112,7 @@ $(document).ready(function () {
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
     console.log(input);
+    $('body').css('overflow-y','scroll');
 
     apiQuery(input);
   });
@@ -163,3 +164,10 @@ $(document).ready(function () {
   });
 
 });
+
+
+
+//-----------Front End---------->
+
+//Function that makes page scrollable once the we click search button...
+
