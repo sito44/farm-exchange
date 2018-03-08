@@ -254,18 +254,58 @@ body {
 
 #address,
 #schedule,
-#products {
+#products, #amentities {
 	font-family: 'Montserrat', sans-serif;
 	color: #9bb762;
 	text-transform: uppercase;
 	font-size: 20px;
+
 }
 
 p {
 	font-family: 'Roboto', sans-serif;
 }
 
+
+.productList{
+	font-family: 'Roboto', sans-serif;
+	color: black;
+    text-transform: none;
+    font-size: 16px;
+
+}
+
+button {
+	color: white;
+    background-color: #464a4e;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+}
+
+button:hover{
+	color: white;
+	background-color: #9bb762;
+}
+
+a.list-group-item {
+	color: black;
+    background-color: #ffffffd1;
+    width:50%;
+    border-radius: 20px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    margin: 3px auto;
+}
+
+a.list-group-item:hover {
+	background-color: #9bb762;
+	color:white;
+
+
 .footer {
 	position:fixed;
 	bottom:0;
+
 }
