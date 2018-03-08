@@ -23,9 +23,23 @@ $(document).ready(function () {
   // --------------------------------------- function gets user input to update mysql table with new market info
 
   function userInput(id, param, input) {
-    $.post(`/api/${id}/${param}/${input}`, function (body, response, err) {
-      console.log('created');
-    });
+    $.post(`/api/${id}/${param}/${input}`, function () {
+        console.log('created');
+      })
+      .done(function (data) {
+        console.log(data);
+        $.get(`/api/market-data/${id}`, function (body) {
+            marketInfoGenerator(body);
+            console.log('updated');
+          })
+          .fail(function () {
+            alert("error");
+          });
+      })
+      .fail(function (err) {
+        console.log(err);
+      })
+  
   }
 
   // ---------------------------------------- function that generates li elements with db data and appends them to the corresponding DOM container
@@ -90,10 +104,10 @@ $(document).ready(function () {
      </div>
     <div class="amenitiesContainer">
     <ul id="amentities">
-    <li>Outdoors: ${marketObject.outdoors} <input type="text" class="input-val" id=outdoors name="input"><button class=input-submit data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Submit</button></li> 
-    <li>Restrooms: ${marketObject.restroom} <input type="text" class="input-val" id=restroom name="input"><button class=input-submit data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
-    <li>Pet Friendly: ${marketObject.petFriendly} <input type="text" class="input-val" id=petFriendly name="input"><button class=input-submit data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
-    <li>Alcohol: ${marketObject.alcohol} <input type="text" class="input-val" id=alcohol name="input"><button class=input-submit data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
+      <li>Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li>Restrooms: ${marketObject.restroom}  <button class="input-submit" data-val="yes" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li>Pet Friendly: ${marketObject.petFriendly}  <button class="input-submit" data-val="yes" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li>Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
     <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -146,19 +160,17 @@ $(document).ready(function () {
 
   });
 
-  $(document).on('click', '.input-submit ', function (event) {
-    // event.preventDefault();
-    const userSubmit = $(".input-val").val().trim();
-    const userInputParam = $(".input-submit").attr('data-name');
-    const marketId = $(".input-submit").attr('data-id');
-    userInput(marketId, userInputParam, userSubmit);
 
-    $.get(`/api/market-data/${marketId}`, function (body) {
-        marketInfoGenerator(body);
-      })
-      .fail(function () {
-        alert("error");
-      });
+
+  $(document).on('click', '.input-submit', function (event) {
+    // event.preventDefault();    
+    const userSubmit = $(this).attr('data-val');
+    const userInputParam = $(this).attr('data-name');
+    const marketId = $(this).attr('data-id');
+ 
+    userInput(marketId, userInputParam, userSubmit);
+    console.log(userInputParam);
+    console.log(marketId);
 
   });
 
