@@ -5,7 +5,7 @@ $(document).ready(function () {
   let currentMarket;
 
 
-// ----------------------------------------- function that makes the inital farmer bureau API call
+  // ----------------------------------------- function that makes the inital farmer bureau API call
 
   function apiQuery(input) {
 
@@ -20,7 +20,7 @@ $(document).ready(function () {
 
   }
 
- // --------------------------------------- function gets user input to update mysql table with new market info
+  // --------------------------------------- function gets user input to update mysql table with new market info
 
   function userInput(id, param, input) {
     $.post(`/api/${id}/${param}/${input}`, function (body, response, err) {
@@ -28,35 +28,37 @@ $(document).ready(function () {
     });
   }
 
-// ---------------------------------------- function that generates li elements with db data and appends them to the corresponding DOM container
+  // ---------------------------------------- function that generates li elements with db data and appends them to the corresponding DOM container
 
   function listGenerator(arrayOfMarkets) {
     let listContainer = $('#queryList');
-    let list = arrayOfMarkets.map(function(marketData){return marketData});
+    let list = arrayOfMarkets.map(function (marketData) {
+      return marketData
+    });
     list.forEach(marketData => {
       let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action" data-marketid="${marketData.id}">${marketData.marketname}</a>`;
       listContainer.append(linkButton);
     });
-    
+
   }
 
-// --------------------------------------- function that splits the products string into an array and generates an li's, then appends them the corresponding DOM container
+  // --------------------------------------- function that splits the products string into an array and generates an li's, then appends them the corresponding DOM container
 
-  function productSplit(productsString){
+  function productSplit(productsString) {
     let productContainer = $('#products');
     let productArray = productsString.split(';');
 
-    for (var i = 0; i < productArray.length; i++){
+    for (var i = 0; i < productArray.length; i++) {
       productContainer.append(`<li>${productArray[i]}</li>`);
     }
   }
-// -------------------------------------- function that generates the all market information from db and appends it to the corresponding DOM container
+  // -------------------------------------- function that generates the all market information from db and appends it to the corresponding DOM container
 
   function marketInfoGenerator(marketDataObject) {
     $('#dataContainer').empty();
     const marketObject = marketDataObject;
-    
-    if(marketObject.outdoors === null) {
+
+    if (marketObject.outdoors === null) {
       marketObject.outdoors = 'N/A';
     }
     if (marketObject.restroom === null) {
@@ -69,72 +71,76 @@ $(document).ready(function () {
       marketDataObject.petFriendly = "N/A"
     }
 
-   
+
     let dataContainer = $('dataContainer');
-    let marketContent = 
-    `<div class="marketHeader">
-    <h3 id="marketName">${marketObject.marketname}</h3>
-    <h4 id="address">${marketObject.Address}</h4>
+    let marketContent =
+      `<div class="info">
+      <div class="img">
+      <img class="center-block" id="farm" src="../img/farm.png" alt="farm"> 
+      </div>     
+    <div class="marketHeader">
+      <h3 class="text-center" id="marketName">${marketObject.marketname}</h3>
     </div>
-    <div class="schedule">
-    <p id="schedule">${marketObject.Schedule}</p>
-    </div>
-    <div class="productsContainer">
-    <ul class="products" id="products"></ul>
-    </div>
+    <div class=" addressTime">
+      <ul class="infoList">
+        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span></li>
+        <li id="scheduleStyle"><span class="text-center" id="schedule">Schedule: </span><span>${marketObject.Schedule}</span></li>
+        <ul><span class="text-center" id="products">Products: </span></ul>
+      </ul>
+     </div>
     <div class="amenitiesContainer">
     <ul id="amentities">
-    <li>${marketObject.outdoors} <input type="text" class="input-val" id=outdoors name="input"><button class=input-submit data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Submit</button></li> 
-    <li>${marketObject.restroom} <input type="text" class="input-val" id=restroom name="input"><button class=input-submit data-name="restromm" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
-    <li>${marketObject.petFriendly} <input type="text" class="input-val" id=petFriendly name="input"><button class=input-submit data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
-    <li>${marketObject.alcohol} <input type="text" class="input-val" id=alcohol name="input"><button class=input-submit data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
+    <li>Outdoors: ${marketObject.outdoors} <input type="text" class="input-val" id=outdoors name="input"><button class=input-submit data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Submit</button></li> 
+    <li>Restrooms: ${marketObject.restroom} <input type="text" class="input-val" id=restroom name="input"><button class=input-submit data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
+    <li>Pet Friendly: ${marketObject.petFriendly} <input type="text" class="input-val" id=petFriendly name="input"><button class=input-submit data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
+    <li>Alcohol: ${marketObject.alcohol} <input type="text" class="input-val" id=alcohol name="input"><button class=input-submit data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Submit</button></li>
     </ul>
     </div>
     <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
   `;
-    
+
     $('#dataContainer').append(marketContent);
 
     if (marketObject.Products !== "") {
       productSplit(marketDataObject.Products);
     }
 
-}
+  }
 
-// ----------------------------------------------------------- click handler for seach button
+  // ----------------------------------------------------------- click handler for seach button
 
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
     console.log(input);
-  
+
     apiQuery(input);
   });
 
   /* --------------------------------------------------------- Event delegation for market button links */
 
- 
-  $(document).on('click', '.list-group-item', function(event) {
+
+  $(document).on('click', '.list-group-item', function (event) {
     event.preventDefault();
     let clickedButtonMarketId = $(this).attr('data-marketid');
     console.log(clickedButtonMarketId)
     $.post(`/api/${clickedButtonMarketId}`)
-    
-    .done(function(data) {
-      console.log('call completed');
-      console.log(data);
 
-      $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
-        marketInfoGenerator(body);
+      .done(function (data) {
+        console.log('call completed');
+        console.log(data);
+
+        $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
+            marketInfoGenerator(body);
+          })
+          .fail(function () {
+            alert("error");
+          });
+
       })
-        .fail(function () {
-          alert("error");
-        });
 
-    })
-
-    .fail(function(err) {
-      console.log(err);
-    })
+      .fail(function (err) {
+        console.log(err);
+      })
 
 
 
@@ -148,8 +154,8 @@ $(document).ready(function () {
     userInput(marketId, userInputParam, userSubmit);
 
     $.get(`/api/market-data/${marketId}`, function (body) {
-      marketInfoGenerator(body);
-    })
+        marketInfoGenerator(body);
+      })
       .fail(function () {
         alert("error");
       });
