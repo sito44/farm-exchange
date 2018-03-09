@@ -63,7 +63,7 @@ $(document).ready(function () {
     let productArray = productsString.split(';');
 
     for (var i = 0; i < productArray.length; i++) {
-      productContainer.append(`<li class="productList">${productArray[i]}</li>`);
+      productContainer.append(`<li>${productArray[i]}</li>`);
     }
   }
   // -------------------------------------- function that generates the all market information from db and appends it to the corresponding DOM container
@@ -120,29 +120,15 @@ $(document).ready(function () {
     }
 
   }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 62db78ef5be175ec6116357236df4955a5a09ab8
 
   // ----------------------------------------------------------- click handler for seach button
 
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
     console.log(input);
-    $('body').css('overflow-y','scroll');
 
     apiQuery(input);
   });
-<<<<<<< HEAD
-=======
-
-}
-  /* --------------------------------------------------------- Event delegation for market button links */
-
- 
->>>>>>> 62db78ef5be175ec6116357236df4955a5a09ab8
 
   /* --------------------------------------------------------- Event delegation for market button links */
 
@@ -189,10 +175,3 @@ $(document).ready(function () {
   });
 
 });
-
-
-
-//-----------Front End---------->
-
-//Function that makes page scrollable once the we click search button...
-
