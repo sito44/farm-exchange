@@ -4,20 +4,29 @@ $(document).ready(function () {
   let currentQuery;
   let currentMarket;
   let prevZip;
+  refreshPage();
+
+  function refreshPage() {
+    $('#main-image').on('click', function () {
+      location.reload();
+    })
+  }
 
 
   // ----------------------------------------- function that makes the inital farmer bureau API call
 
   function apiQuery(input) {
     prevZip = input;
-    $.post(`/api/zip/${input}`, function (body, response, err) {
-      console.log(input);
-      console.log(err);
-      currentQuery = body.results;
-      console.log(currentQuery);
-      console.log(`Markets Found: ${response}`);
-      listGenerator(currentQuery);
-    });
+    if (prevZip) {
+      $.post(`/api/zip/${input}`, function (body, response, err) {
+        console.log(input);
+        console.log(err);
+        currentQuery = body.results;
+        console.log(currentQuery);
+        console.log(`Markets Found: ${response}`);
+        listGenerator(currentQuery);
+      });
+    }
 
   }
 
@@ -40,7 +49,7 @@ $(document).ready(function () {
       .fail(function (err) {
         console.log(err);
       })
-  
+
   }
 
   // ---------------------------------------- function that generates li elements with db data and appends them to the corresponding DOM container
@@ -67,9 +76,11 @@ $(document).ready(function () {
     let productContDiv = $('<div></div>').addClass('productContDiv');
 
     for (var i = 0; i < productArray.length; i++) {
+
       let productDiv = $('<div></div>').addClass('productDiv');
       productDiv.append(`<li class="productList">${productArray[i]}</li>`);
       productContainer.append(productDiv);
+
     }
   }
   // -------------------------------------- function that generates the all market information from db and appends it to the corresponding DOM container
@@ -103,20 +114,19 @@ $(document).ready(function () {
     </div>
     <div class=" addressTime">
       <ul class="infoList">
-        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span></li>
+        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span><button class="fa fa-map-marker directions"><a class="myA" href="${marketObject.GoogleLink}"> MAP</a></button></li>
         <li id="scheduleStyle"><span class="text-center" id="schedule">Schedule: </span><span>${marketObject.Schedule}</span></li>
         <ul><span class="text-center" id="products">Products: </span></ul>
       </ul>
      </div>
     <div class="amenitiesContainer">
     <ul id="amentities">
-      <li>Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
-    <li>Restrooms: ${marketObject.restroom}  <button class="input-submit" data-val="yes" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">No</button></li>
-    <li>Pet Friendly: ${marketObject.petFriendly}  <button class="input-submit" data-val="yes" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">No</button></li>
-    <li>Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+      <li class="item">Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Restrooms: ${marketObject.restroom}  <button class="input-submit" data-val="yes" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Pet Friendly: ${marketObject.petFriendly}  <button class="input-submit" data-val="yes" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
-    <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
   `;
 
     $('#dataContainer').append(marketContent);
@@ -134,61 +144,57 @@ $(document).ready(function () {
 
   // ---------------------------------------------- function that appends back button and creates an event handler for that instants 
 
-  function backButtonAppender(){
+  function backButtonAppender() {
     let backButton = `<button id="backButton">Back</button>`;
     $('#dataContainer').append(backButton);
 
   }
-  
-  
+
+
   // ----------------------------------------------------------- click handler for seach button
-  
+
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
     console.log(input);
-    
+
     apiQuery(input);
   });
-  
+
   /* --------------------------------------------------------- Event delegation for market button links */
-  
-  
+
+
   $(document).on('click', '.list-group-item', function (event) {
     event.preventDefault();
     let clickedButtonMarketId = $(this).attr('data-marketid');
     console.log(clickedButtonMarketId)
     $.post(`/api/${clickedButtonMarketId}`)
-    
-    .done(function (data) {
-      console.log('call completed');
-      console.log(data);
-      
-      $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
-        marketInfoGenerator(body);
+
+      .done(function (data) {
+        console.log('call completed');
+        console.log(data);
+
+        $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
+            marketInfoGenerator(body);
+          })
+          .fail(function () {
+            alert("error");
+          });
+
       })
-      .fail(function () {
-        alert("error");
-      });
-      
-    })
-    
-    .fail(function (err) {
-      console.log(err);
-    })
-    
-    
-    
+
+      .fail(function (err) {
+        console.log(err);
+      })
+
+
   });
-
-
-
 
   $(document).on('click', '.input-submit', function (event) {
     // event.preventDefault();    
     const userSubmit = $(this).attr('data-val');
     const userInputParam = $(this).attr('data-name');
     const marketId = $(this).attr('data-id');
- 
+
     userInput(marketId, userInputParam, userSubmit);
     console.log(userInputParam);
     console.log(marketId);
@@ -196,13 +202,13 @@ $(document).ready(function () {
 
   });
 
-  $(document).on('click', '#backButton', function(){
+  $(document).on('click', '#backButton', function () {
     dataContainerEmpty();
     const dataBox = $('#dataContainer');
     let listBox = '<div class="list-group" id="queryList"></div>';
     dataBox.append(listBox);
-    
+
     apiQuery(prevZip);
   });
-  
+
 });
