@@ -17,14 +17,16 @@ $(document).ready(function () {
 
   function apiQuery(input) {
     prevZip = input;
-    $.post(`/api/zip/${input}`, function (body, response, err) {
-      console.log(input);
-      console.log(err);
-      currentQuery = body.results;
-      console.log(currentQuery);
-      console.log(`Markets Found: ${response}`);
-      listGenerator(currentQuery);
-    });
+    if (prevZip) {
+      $.post(`/api/zip/${input}`, function (body, response, err) {
+        console.log(input);
+        console.log(err);
+        currentQuery = body.results;
+        console.log(currentQuery);
+        console.log(`Markets Found: ${response}`);
+        listGenerator(currentQuery);
+      });
+    }
 
   }
 
@@ -114,10 +116,10 @@ $(document).ready(function () {
      </div>
     <div class="amenitiesContainer">
     <ul id="amentities">
-      <li>Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
-    <li>Restrooms: ${marketObject.restroom}  <button class="input-submit" data-val="yes" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">No</button></li>
-    <li>Pet Friendly: ${marketObject.petFriendly}  <button class="input-submit" data-val="yes" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">No</button></li>
-    <li>Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+      <li class="item">Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Restrooms: ${marketObject.restroom}  <button class="input-submit" data-val="yes" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Pet Friendly: ${marketObject.petFriendly}  <button class="input-submit" data-val="yes" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
     <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
