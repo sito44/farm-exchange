@@ -74,6 +74,25 @@ TOP MENU
 	background-color: #92b955;
 }
 
+a.myA {
+    color: inherit;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+.directions{
+	    margin-left: 10px;
+	    color: white;
+    background-color: #9bb762;
+        border-radius: 20px;
+            font-family: 'Roboto', sans-serif;
+
+}
+.directions:hover{
+	    color: white;
+    background-color: #464a4e;    
+}
+
 .menu-logo {
 	border-bottom: 2px white dashed;
 }
@@ -271,7 +290,6 @@ ul {
 
 #backButton{
 	position: absolute;
-    right: 7px;
     background-color: #92846f;
     padding: 10px 25px;
 }
@@ -349,8 +367,8 @@ p {
 
 button {
 	color: white;
-    background-color: #464a4e;
-    border-radius: 20px;
+background-color: #92846f;    
+border-radius: 20px;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
 }

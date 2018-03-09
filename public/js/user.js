@@ -109,7 +109,7 @@ $(document).ready(function () {
     </div>
     <div class=" addressTime">
       <ul class="infoList">
-        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span></li>
+        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span><button class="fa fa-map-marker directions"><a class="myA" href="${marketObject.GoogleLink}"> MAP</a></button></li>
         <li id="scheduleStyle"><span class="text-center" id="schedule">Schedule: </span><span>${marketObject.Schedule}</span></li>
         <ul><span class="text-center" id="products">Products: </span></ul>
       </ul>
@@ -122,7 +122,6 @@ $(document).ready(function () {
     <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
-    <button class="directions"><a href="${marketObject.GoogleLink}">DIRECTIONS</a></button>
   `;
 
     $('#dataContainer').append(marketContent);
