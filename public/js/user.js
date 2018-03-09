@@ -73,7 +73,7 @@ $(document).ready(function () {
     let productArray = productsString.split(';');
 
     for (var i = 0; i < productArray.length; i++) {
-      productContainer.append(`<li>${productArray[i]}</li>`);
+      productContainer.append(`<li class="productList">${productArray[i]}</li>`);
     }
   }
   // -------------------------------------- function that generates the all market information from db and appends it to the corresponding DOM container

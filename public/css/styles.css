@@ -8,6 +8,67 @@ rgba(156, 229, 156, 1);
 TOP MENU
 ------------------------
 */
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+	
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+	div.menu-logo {
+		display:block;
+	}
+	div.main-container {
+    background: url(../img/carrot.jpg) white no-repeat center center;
+    background-color: rgba(256,256,256, 0);
+    background-size: cover;
+    background-position: center center;
+    opacity: 1;
+    visibility: inherit;
+    z-index: 20;
+    min-height: 100vh;
+}
+	div.log-btns{
+			margin-top: 100px
+		}
+	#backButton{
+		right: 7px;
+	}
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+	div.menu-logo {
+		display:block;
+	}
+	div.main-container {
+    background: url(../img/carrot.jpg) white no-repeat center center;
+    background-color: rgba(256,256,256, 0);
+    background-size: cover;
+    background-position: center center;
+    opacity: 1;
+    visibility: inherit;
+    z-index: 20;
+    min-height: 100vh;
+}
+	div.log-btns{
+		margin-top: 100px
+	}
+	#backButton{
+		right: 7px;
+	}
+}
 .logo-main-box {
 	overflow: hidden;
 	background-color: #92b955;
@@ -208,7 +269,18 @@ ul {
 	padding: 0 10%;
 }
 
+#backButton{
+	position: absolute;
+    right: 7px;
+    background-color: #92846f;
+    padding: 10px 25px;
+}
 
+#backButton:hover{
+    color: white;
+    background-color: #9bb762;
+	}
+}
 
 #dataContainer {
 	position: relative;
