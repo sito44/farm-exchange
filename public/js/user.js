@@ -4,6 +4,13 @@ $(document).ready(function () {
   let currentQuery;
   let currentMarket;
   let prevZip;
+  refreshPage();
+
+  function refreshPage() {
+    $('#main-image').on('click', function () {
+      location.reload();
+    })
+  }
 
 
   // ----------------------------------------- function that makes the inital farmer bureau API call
@@ -40,7 +47,7 @@ $(document).ready(function () {
       .fail(function (err) {
         console.log(err);
       })
-  
+
   }
 
   // ---------------------------------------- function that generates li elements with db data and appends them to the corresponding DOM container
@@ -131,61 +138,57 @@ $(document).ready(function () {
 
   // ---------------------------------------------- function that appends back button and creates an event handler for that instants 
 
-  function backButtonAppender(){
+  function backButtonAppender() {
     let backButton = `<button id="backButton">Back</button>`;
     $('#dataContainer').append(backButton);
 
   }
-  
-  
+
+
   // ----------------------------------------------------------- click handler for seach button
-  
+
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
     console.log(input);
-    
+
     apiQuery(input);
   });
-  
+
   /* --------------------------------------------------------- Event delegation for market button links */
-  
-  
+
+
   $(document).on('click', '.list-group-item', function (event) {
     event.preventDefault();
     let clickedButtonMarketId = $(this).attr('data-marketid');
     console.log(clickedButtonMarketId)
     $.post(`/api/${clickedButtonMarketId}`)
-    
-    .done(function (data) {
-      console.log('call completed');
-      console.log(data);
-      
-      $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
-        marketInfoGenerator(body);
+
+      .done(function (data) {
+        console.log('call completed');
+        console.log(data);
+
+        $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
+            marketInfoGenerator(body);
+          })
+          .fail(function () {
+            alert("error");
+          });
+
       })
-      .fail(function () {
-        alert("error");
-      });
-      
-    })
-    
-    .fail(function (err) {
-      console.log(err);
-    })
-    
-    
-    
+
+      .fail(function (err) {
+        console.log(err);
+      })
+
+
   });
-
-
-
 
   $(document).on('click', '.input-submit', function (event) {
     // event.preventDefault();    
     const userSubmit = $(this).attr('data-val');
     const userInputParam = $(this).attr('data-name');
     const marketId = $(this).attr('data-id');
- 
+
     userInput(marketId, userInputParam, userSubmit);
     console.log(userInputParam);
     console.log(marketId);
@@ -193,13 +196,13 @@ $(document).ready(function () {
 
   });
 
-  $(document).on('click', '#backButton', function(){
+  $(document).on('click', '#backButton', function () {
     dataContainerEmpty();
     const dataBox = $('#dataContainer');
     let listBox = '<div class="list-group" id="queryList"></div>';
     dataBox.append(listBox);
-    
+
     apiQuery(prevZip);
   });
-  
+
 });
