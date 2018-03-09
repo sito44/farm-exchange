@@ -62,11 +62,14 @@ $(document).ready(function () {
   // --------------------------------------- function that splits the products string into an array and generates an li's, then appends them the corresponding DOM container
 
   function productSplit(productsString) {
-    let productContainer = $('#products');
+    let productContainer = $('#products').addClass('productContainer');
     let productArray = productsString.split(';');
+    let productContDiv = $('<div></div>').addClass('productContDiv');
 
     for (var i = 0; i < productArray.length; i++) {
-      productContainer.append(`<li>${productArray[i]}</li>`);
+      let productDiv = $('<div></div>').addClass('productDiv');
+      productDiv.append(`<li class="productList">${productArray[i]}</li>`);
+      productContainer.append(productDiv);
     }
   }
   // -------------------------------------- function that generates the all market information from db and appends it to the corresponding DOM container
