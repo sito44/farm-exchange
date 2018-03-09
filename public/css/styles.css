@@ -74,6 +74,25 @@ TOP MENU
 	background-color: #92b955;
 }
 
+a.myA {
+    color: inherit;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+.directions{
+	    margin-left: 10px;
+	    color: white;
+    background-color: #9bb762;
+        border-radius: 20px;
+            font-family: 'Roboto', sans-serif;
+
+}
+.directions:hover{
+	    color: white;
+    background-color: #464a4e;    
+}
+
 .menu-logo {
 	border-bottom: 2px white dashed;
 }
@@ -208,6 +227,46 @@ BODY
 ------------------------
 */
 
+.productDiv {
+	border: 3px dashed gray;
+	display: inline-block;
+	margin: 3px;
+	background-color: rgba(256,256,256,0.5);
+	padding: 5px;
+	font-family: 'Roboto', sans-serif;
+    color: black;
+    text-transform: none;
+    font-size: 16px;
+}
+
+.productDiv:hover {
+	background-color: lightblue;
+}
+
+.productDiv:first-child {
+    margin-top: 50px;
+}
+
+.img {
+	padding-top: 15px;
+	color:white;
+}
+
+.addressTime, 
+.amenitiesContainer {
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-top: 15px;
+}
+
+.marketName {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+
+
+
 html {
     position: relative;
     min-height: 100%; 
@@ -271,7 +330,6 @@ ul {
 
 #backButton{
 	position: absolute;
-    right: 7px;
     background-color: #92846f;
     padding: 10px 25px;
 }
@@ -338,6 +396,11 @@ p {
 	font-family: 'Roboto', sans-serif;
 }
 
+.footer {
+	position: fixed;
+	bottom: 0;
+	background-color: rgba(256,256,256,0.5);
+}
 
 .productList{
 	font-family: 'Roboto', sans-serif;
@@ -349,8 +412,8 @@ p {
 
 button {
 	color: white;
-    background-color: #464a4e;
-    border-radius: 20px;
+background-color: #92846f;    
+border-radius: 20px;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
 }
@@ -373,11 +436,8 @@ a.list-group-item {
 
 a.list-group-item:hover {
 	background-color: #9bb762;
-	color:white;
-
-
-.footer {
-	position:fixed;
-	bottom:0;
-
+	color:white; 
 }
+
+
+
