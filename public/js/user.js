@@ -122,7 +122,7 @@ $(document).ready(function () {
     <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
-    <iframe src="${marketObject.GoogleLink}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <button class="directions"><a href="${marketObject.GoogleLink}">DIRECTIONS</a></button>
   `;
 
     $('#dataContainer').append(marketContent);
