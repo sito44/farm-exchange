@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Farmers Exhange</title>
+    <title>Farmers Exchange</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- CSS link -->
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
     <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:900|Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <!-- JQUERY link -->
@@ -29,33 +30,55 @@
     <!-- MAIN CONTAINER -->
 
     <div class="main-container">
+        <div id="carouselExampleSlidesOnly" class="carousel slide carousel-bg" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-interval="5000">
+              <img class="d-block w-100 h-100 slides img-fluid" src="../img/slideOne.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item" data-interval="5000">
+              <img class="d-block w-100 h-100 slides img-fluid" src="../img/carrot.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item" data-interval="5000">
+              <img class="d-block w-100 h-100 slides img-fluid" src="../img/slideThree.jpg" alt="Third slide">
+            </div>
+          </div>
+        </div>
 
         <div class="back-image">
+
 
             <!-- Logo & Menu container -->
 
             <div class="menu-logo">
-                <div class="logo col-md-6">
-                    <img src="#">
+                <div class="logo-main-box col-md-4">
+                    <div class="logo-box d-flex justify-content-center align-items-center">
+                        <img class="logo" src="../img/farmex-04.png">
+                    </div>
                 </div>
-                <div class='log-btns col-md-6'>
-                    <div class="Sign-in">Sign-in</div>
-                    <div class="Login">Login</div>
+                <div class='log-btns col-md-8'>
+                    <div class="search-box">
+                        <h4>Find a Farmers Market near you!</h4>
+                        <div class="search-group">
+                            <input class="search-input inactive" type="text" placeholder="ie. 92154">
+                            <button id="submit" class="button button-brand-primary button-search">
+                                <img id="searchicon" src="searchicon.png" alt="search icon">
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <h1 class="name">Farmers Exchange</h1>
 
         <!-- SEARCH BAR -->
 
-        <div class="search-box">
+        <!-- <div class="search-box">
             <div class="search-group">
                 <input class="search-input inactive" type="text" placeholder="ie. 92154">
                 <button id="submit" class="button button-brand-primary button-search">
                     <img id="searchicon" src="searchicon.png" alt="search icon">
                 </button>
             </div>
-        </div>
+        </div> -->
 
         <!-- JQUERY GENERATED RESULT LIST -->
         <div id="dataContainer">
