@@ -3,12 +3,13 @@ $(document).ready(function () {
 
   let currentQuery;
   let currentMarket;
+  let prevZip;
 
 
   // ----------------------------------------- function that makes the inital farmer bureau API call
 
   function apiQuery(input) {
-
+    prevZip = input;
     $.post(`/api/zip/${input}`, function (body, response, err) {
       console.log(input);
       console.log(err);
@@ -31,7 +32,9 @@ $(document).ready(function () {
   // ---------------------------------------- function that generates li elements with db data and appends them to the corresponding DOM container
 
   function listGenerator(arrayOfMarkets) {
+
     let listContainer = $('#queryList');
+    listContainer.empty();
     let list = arrayOfMarkets.map(function (marketData) {
       return marketData
     });
@@ -55,7 +58,7 @@ $(document).ready(function () {
   // -------------------------------------- function that generates the all market information from db and appends it to the corresponding DOM container
 
   function marketInfoGenerator(marketDataObject) {
-    $('#dataContainer').empty();
+    dataContainerEmpty();
     const marketObject = marketDataObject;
 
     if (marketObject.outdoors === null) {
@@ -72,7 +75,7 @@ $(document).ready(function () {
     }
 
 
-    let dataContainer = $('dataContainer');
+    backButtonAppender();
     let marketContent =
       `<div class="info">
       <div class="img">
@@ -107,59 +110,82 @@ $(document).ready(function () {
 
   }
 
-  // ----------------------------------------------------------- click handler for seach button
+  // ---------------------------------------------- Empty main data Container function
+  function dataContainerEmpty() {
+    $('#dataContainer').empty();
+  }
 
+  // ---------------------------------------------- function that appends back button and creates an event handler for that instants 
+
+  function backButtonAppender(){
+    let backButton = `<button id="backButton">Back</button>`;
+    $('#dataContainer').append(backButton);
+
+  }
+  
+  
+  // ----------------------------------------------------------- click handler for seach button
+  
   $('#submit').on('click', function () {
     const input = $('.search-input').val().trim();
     console.log(input);
-
+    
     apiQuery(input);
   });
-
+  
   /* --------------------------------------------------------- Event delegation for market button links */
-
-
+  
+  
   $(document).on('click', '.list-group-item', function (event) {
     event.preventDefault();
     let clickedButtonMarketId = $(this).attr('data-marketid');
     console.log(clickedButtonMarketId)
     $.post(`/api/${clickedButtonMarketId}`)
-
-      .done(function (data) {
-        console.log('call completed');
-        console.log(data);
-
-        $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
-            marketInfoGenerator(body);
-          })
-          .fail(function () {
-            alert("error");
-          });
-
+    
+    .done(function (data) {
+      console.log('call completed');
+      console.log(data);
+      
+      $.get(`/api/market-data/${clickedButtonMarketId}`, function (body) {
+        marketInfoGenerator(body);
       })
-
-      .fail(function (err) {
-        console.log(err);
-      })
-
-
-
+      .fail(function () {
+        alert("error");
+      });
+      
+    })
+    
+    .fail(function (err) {
+      console.log(err);
+    })
+    
+    
+    
   });
-
+  
   $(document).on('click', '.input-submit ', function (event) {
     // event.preventDefault();
     const userSubmit = $(".input-val").val().trim();
     const userInputParam = $(".input-submit").attr('data-name');
     const marketId = $(".input-submit").attr('data-id');
     userInput(marketId, userInputParam, userSubmit);
-
+    
     $.get(`/api/market-data/${marketId}`, function (body) {
-        marketInfoGenerator(body);
-      })
-      .fail(function () {
-        alert("error");
-      });
-
+      marketInfoGenerator(body);
+    })
+    .fail(function () {
+      alert("error");
+    });
+    
   });
 
+  $(document).on('click', '#backButton', function(){
+    dataContainerEmpty();
+    const dataBox = $('#dataContainer');
+    let listBox = '<div class="list-group" id="queryList"></div>';
+    dataBox.append(listBox);
+    
+    apiQuery(prevZip);
+  });
+  
 });
