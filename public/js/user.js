@@ -127,6 +127,9 @@ $(document).ready(function () {
     <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
+
+    <button><a class="directions" href="${marketObject.GoogleLink}" target="_blank">DIRECTIONS</a></button>
+
   `;
 
     $('#dataContainer').append(marketContent);
