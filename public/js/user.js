@@ -71,11 +71,16 @@ $(document).ready(function () {
   // --------------------------------------- function that splits the products string into an array and generates an li's, then appends them the corresponding DOM container
 
   function productSplit(productsString) {
-    let productContainer = $('#products');
+    let productContainer = $('#products').addClass('productContainer');
     let productArray = productsString.split(';');
+    let productContDiv = $('<div></div>').addClass('productContDiv');
 
     for (var i = 0; i < productArray.length; i++) {
-      productContainer.append(`<li class="productList">${productArray[i]}</li>`);
+
+      let productDiv = $('<div></div>').addClass('productDiv');
+      productDiv.append(`<li class="productList">${productArray[i]}</li>`);
+      productContainer.append(productDiv);
+
     }
   }
   // -------------------------------------- function that generates the all market information from db and appends it to the corresponding DOM container
@@ -109,7 +114,7 @@ $(document).ready(function () {
     </div>
     <div class=" addressTime">
       <ul class="infoList">
-        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span></li>
+        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span><button class="fa fa-map-marker directions"><a class="myA" href="${marketObject.GoogleLink}"> MAP</a></button></li>
         <li id="scheduleStyle"><span class="text-center" id="schedule">Schedule: </span><span>${marketObject.Schedule}</span></li>
         <ul><span class="text-center" id="products">Products: </span></ul>
       </ul>
@@ -122,7 +127,9 @@ $(document).ready(function () {
     <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
+
     <button><a class="directions" href="${marketObject.GoogleLink}" target="_blank">DIRECTIONS</a></button>
+
   `;
 
     $('#dataContainer').append(marketContent);
