@@ -126,7 +126,7 @@ $(document).ready(function () {
     </div>
     <div class=" addressTime">
       <ul class="infoList">
-        <li id="scheduleStyle"><span class="text-center" id="schedule">Miles Away From Zip: </span><span>${milesAwayZip}</span></li>
+        <li id="miles"><span class="text-center" id="schedule">Miles Away: </span><span>${milesAwayZip}</span></li>
         <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span><button class="fa fa-map-marker directions"><a class="myA" href="${marketObject.GoogleLink}" target="_blank"> MAP</a></button></li>
         <li id="scheduleStyle"><span class="text-center" id="schedule">Schedule: </span><span>${marketObject.Schedule}</span></li>
         <ul><span class="text-center" id="products">Products: </span></ul>
@@ -134,10 +134,10 @@ $(document).ready(function () {
      </div>
     <div class="amenitiesContainer">
     <ul id="amentities">
-      <li class="item">Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     <li class="item">Restrooms: ${marketObject.restroom}  <button class="input-submit" data-val="yes" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     <li class="item">Pet Friendly: ${marketObject.petFriendly}  <button class="input-submit" data-val="yes" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">No</button></li>
-    <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
 
