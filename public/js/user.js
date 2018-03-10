@@ -16,8 +16,11 @@ $(document).ready(function () {
   // ----------------------------------------- function that makes the inital farmer bureau API call
 
   function apiQuery(input) {
+    const list = `<div class="list-group" id="queryList"></div>`;
     prevZip = input;
     if (prevZip) {
+      dataContainerEmpty();
+      $('#dataContainer').append(list);
       $.post(`/api/zip/${input}`, function (body, response, err) {
         console.log(input);
         console.log(err);
@@ -55,7 +58,6 @@ $(document).ready(function () {
   // ---------------------------------------- function that generates li elements with db data and appends them to the corresponding DOM container
 
   function listGenerator(arrayOfMarkets) {
-
     let listContainer = $('#queryList');
     listContainer.empty();
     let list = arrayOfMarkets.map(function (marketData) {
