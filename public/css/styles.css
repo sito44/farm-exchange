@@ -81,16 +81,16 @@ a.myA {
 }
 
 .directions{
-	    margin-left: 10px;
-	    color: white;
-    background-color: #9bb762;
-        border-radius: 20px;
-            font-family: 'Roboto', sans-serif;
+	margin-left: 10px;
+	color: white;
+    background-color: #92846f;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
 
 }
 .directions:hover{
 	    color: white;
-    background-color: #464a4e;    
+    background-color: #9bb762;    
 }
 
 .menu-logo {
@@ -142,6 +142,7 @@ SEACH BAR
 #searchicon {
 	height: 20px;
 	width: 20px;
+	vertical-align: unset!important;
 }
 
 .search-group {
@@ -228,19 +229,21 @@ BODY
 */
 
 .productDiv {
-	border: 3px dashed gray;
-	display: inline-block;
-	margin: 3px;
-	background-color: rgba(256,256,256,0.5);
-	padding: 5px;
-	font-family: 'Roboto', sans-serif;
+    display: inline-block;
+    margin: 3px;
+    background-color: #ffffffd1;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-family: 'Roboto', sans-serif;
     color: black;
     text-transform: none;
     font-size: 16px;
+    border-radius: 27px;
 }
 
 .productDiv:hover {
-	background-color: lightblue;
+	background-color: #9bb762;
+	color:white;
 }
 
 .productDiv:first-child {
@@ -412,10 +415,11 @@ p {
 
 button {
 	color: white;
-background-color: #92846f;    
-border-radius: 20px;
+	background-color: #92846f;    
+	border-radius: 20px;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 
 button:hover{
