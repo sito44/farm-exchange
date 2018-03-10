@@ -37,10 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {});
 
-    Market.associate = function (models) {
-        // associations can be defined here
-        // market.belongsTo(models.[other model name])
-    };
     return Market;
 };
 
