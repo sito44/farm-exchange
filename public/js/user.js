@@ -140,9 +140,6 @@ $(document).ready(function () {
     <li class="item">Pet Friendly: ${marketObject.petFriendly}  <button class="input-submit" data-val="yes" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
-
-    
-
   `;
 
     $('#dataContainer').append(marketContent);
