@@ -62,7 +62,14 @@ $(document).ready(function () {
       return marketData
     });
     list.forEach(marketData => {
-      let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action" data-marketid="${marketData.id}">${marketData.marketname}</a>`;
+      
+
+
+      let marketSplit = marketData.marketname.split(' ');
+      marketSplit.shift();
+      let onlyMarketName = marketSplit.join(' ');
+      
+      let linkButton = `<a href="/api/${marketData.id}" class="list-group-item list-group-item-action" data-marketid="${marketData.id}">${onlyMarketName}</a>`;
       listContainer.append(linkButton);
     });
 
@@ -104,30 +111,35 @@ $(document).ready(function () {
 
 
     backButtonAppender();
+
+    let marketSplit = marketObject.marketname.split(' ');
+    let milesAwayZip = marketSplit.shift();
+    let onlyMarketName = marketSplit.join(' ');
+
     let marketContent =
       `<div class="info">
       <div class="img">
       <img class="center-block" id="farm" src="../img/farm.png" alt="farm"> 
       </div>     
     <div class="marketHeader">
-      <h3 class="text-center" id="marketName">${marketObject.marketname}</h3>
+      <h3 class="text-center" id="marketName">${onlyMarketName}</h3>
     </div>
     <div class=" addressTime">
       <ul class="infoList">
-        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span><button class="fa fa-map-marker directions"><a class="myA" href="${marketObject.GoogleLink}"> MAP</a></button></li>
+        <li id="miles"><span class="text-center" id="schedule">Miles Away: </span><span>${milesAwayZip}</span></li>
+        <li><span class="text-center" id="address">Address: </span><span>${marketObject.Address}</span><button class="fa fa-map-marker directions"><a class="myA" href="${marketObject.GoogleLink}" target="_blank"> MAP</a></button></li>
         <li id="scheduleStyle"><span class="text-center" id="schedule">Schedule: </span><span>${marketObject.Schedule}</span></li>
         <ul><span class="text-center" id="products">Products: </span></ul>
       </ul>
      </div>
     <div class="amenitiesContainer">
     <ul id="amentities">
-      <li class="item">Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
+    <li class="item">Outdoors: ${marketObject.outdoors} <button class="input-submit" data-val="yes" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="outdoors" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     <li class="item">Restrooms: ${marketObject.restroom}  <button class="input-submit" data-val="yes" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="restroom" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     <li class="item">Pet Friendly: ${marketObject.petFriendly}  <button class="input-submit" data-val="yes" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">Yes</button> <button class="input-submit" data-val="no" data-name="petFriendly" data-id="${marketObject.usda_id}" type="submit">No</button></li>
-    <li class="item">Alcohol: ${marketObject.alcohol} <button class="input-submit" data-val="yes" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">Yes</button>  <button class="input-submit" data-val="no" data-name="alcohol" data-id="${marketObject.usda_id}" type="submit">No</button></li>
     </ul>
     </div>
-    <button><a class="directions" href="${marketObject.GoogleLink}" target="_blank">DIRECTIONS</a></button>
   `;
 
     $('#dataContainer').append(marketContent);
