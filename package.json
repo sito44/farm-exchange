@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-   "test": "mocha"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,4 @@
     "request": "^2.83.0",
     "sequelize": "^4.34.1"
   }
- 
-
 }
