@@ -12,7 +12,7 @@ Full-Stack Application that enables users to search for local farmers markets an
 - Mysql
 - Sequelize
 
-Heroku Link: 
+Heroku Link: https://hidden-spire-18757.herokuapp.com/ 
 
 ### Contributors
 
