@@ -16,4 +16,6 @@ Heroku Link: https://hidden-spire-18757.herokuapp.com/
 
 ### Contributors
 
-[Andre Holguin](https://github.com/sito44), [Elma Gonzalez](https://github.com/eyl91), [Tom Hughes](https://github.com/tomkhughes), [Ricardo Guerrero](https://github.com/RICGRO1221), [Richard A Brant](https://github.com/VRKnyght). 
+[Andre Holguin](https://github.com/sito44), [Elma Gonzalez](https://github.com/eyl91), [Tom Hughes](https://github.com/tomkhughes), [Ricardo Guerrero](https://github.com/RICGRO1221), [Richard A Brant](https://github.com/VRKnyght).
+
+:copyright: Farmers Exchange - 2018 
